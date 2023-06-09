@@ -35,8 +35,7 @@ st.write("### Dosen Pengampu : Eka Mala Sari Rochman, S.Kom., M.Kom.", unsafe_al
 with st.container():
     with st.sidebar:
         selected = option_menu(
-            st.write("""<h3 style="text-align: center;"><img src="" width="120" height="120"></h3>""",
-                     unsafe_allow_html=True),
+            st.write("""<h3 style="text-align: center;"><img src="" width="120" height="120"></h3>""",unsafe_allow_html=True),
             ["Home", "Implementation"],
             icons=['house', 'check2-square'], menu_icon="cast", default_index=0,
             styles={
@@ -79,28 +78,41 @@ with st.container():
         probas_gaussian = probas_gaussian.round().astype(int)
 
         # Artificial Neural Network
-        ann = MLPClassifier(hidden_layer_sizes=(100, 50), max_iter=1000)
+        # ann = MLPClassifier(hidden_layer_sizes=(100, 50), max_iter=1000)
+        # Fungsi aktivasi sigmoid
+        # ann = MLPClassifier(hidden_layer_sizes=(200, 100), activation='relu', max_iter=2000)
+        # Fungsi aktivasi sigmoid
+        # ann = MLPClassifier(hidden_layer_sizes=(200, 100), activation='sigmoid', max_iter=2000)
+        # Fungsi aktivasi tanh
+        # ann = MLPClassifier(hidden_layer_sizes=(200, 100), activation='tanh', max_iter=2000)
+        ann = MLPClassifier(hidden_layer_sizes=(200, 100), max_iter=2000)
         ann.fit(training, training_label)
         probas_ann = ann.predict_proba(test)
         probas_ann = probas_ann[:, 1]
         probas_ann = probas_ann.round().astype(int)
 
+
         # Support Vector Machine
-        svm = SVC(probability=True)
+        # kernel = st.selectbox('Kernel', ['linear', 'poly', 'rbf', 'sigmoid'])
+        kernel = 'linear'  # Ganti dengan kernel yang diinginkan, misalnya 'poly', 'rbf', atau 'sigmoid'
+        svm = SVC(kernel=kernel, probability=True)
         svm.fit(training, training_label)
         probas_svm = svm.predict_proba(test)
         probas_svm = probas_svm[:, 1]
         probas_svm = probas_svm.round().astype(int)
 
         # Logistic Regression
-        logistic_regression = LogisticRegression()
+        # ubah dengan ini 
+        # solver='liblinear', solver='newton-cg', solver='lbfgs', solver='sag', solver='saga'
+        logistic_regression = LogisticRegression(solver='liblinear')
         logistic_regression.fit(training, training_label)
         probas_logistic_regression = logistic_regression.predict_proba(test)
         probas_logistic_regression = probas_logistic_regression[:, 1]
         probas_logistic_regression = probas_logistic_regression.round().astype(int)
 
         # K-Nearest Neighbors
-        knn = KNeighborsClassifier()
+        k = 5  # Nilai K default jika ingin merubah tinggal ubah nilai k nya
+        knn = KNeighborsClassifier(n_neighbors=k)
         knn.fit(training, training_label)
         probas_knn = knn.predict_proba(test)
         probas_knn = probas_knn[:, 1]
@@ -229,6 +241,3 @@ with st.container():
                 fig.update_layout(title='Perbandingan Akurasi Model', xaxis_title='Model', yaxis_title='Akurasi (%)')
 
                 st.plotly_chart(fig)
-
-                # ...
-
