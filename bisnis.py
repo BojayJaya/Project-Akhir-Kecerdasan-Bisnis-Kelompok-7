@@ -10,6 +10,7 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
 import plotly.graph_objects as go
 import warnings
 warnings.filterwarnings('ignore')
@@ -68,7 +69,7 @@ with st.container():
         y_encoded = label_encoder.fit_transform(y)
 
         # Split Data
-        training, test, training_label, test_label = train_test_split(scaled_features, y_encoded, test_size=0.2, random_state=1)
+        training, test, training_label, test_label = train_test_split(scaled_features, y_encoded, test_size=0.1, random_state=42)
 
         # Gaussian Naive Bayes
         gaussian = GaussianNB()
@@ -117,6 +118,14 @@ with st.container():
         probas_knn = knn.predict_proba(test)
         probas_knn = probas_knn[:, 1]
         probas_knn = probas_knn.round().astype(int)
+
+        # Decision Tree dengan kriteria entropy
+        decision_tree = DecisionTreeClassifier(criterion='gini')
+        # decision_tree = DecisionTreeClassifier(criterion='entropy')
+        decision_tree.fit(training, training_label)
+        probas_decision_tree = decision_tree.predict_proba(test)
+        probas_decision_tree = probas_decision_tree[:, 1]
+        probas_decision_tree = probas_decision_tree.round().astype(int)
 
         st.subheader("Implementasi Penerima bantuan PIP dan KIP")
         jenis_tinggal = st.selectbox('Masukkan jenis tinggal:',
@@ -201,6 +210,17 @@ with st.container():
                 else:
                     st.success('KIP')
 
+                # Decision Tree
+                input_pred_decision_tree = decision_tree.predict(inputs_encoded)
+                probas_decision_tree = probas_decision_tree.round().astype(int)
+                akurasi_decision_tree = round(100 * accuracy_score(test_label, probas_decision_tree))
+                st.write('Decision Tree')
+                st.write('Akurasi: {0:0.0f}'.format(akurasi_decision_tree), '%')
+                if input_pred_decision_tree == 1:
+                    st.error('PIP')
+                else:
+                    st.success('KIP')
+
             else:
                 st.error('Tidak ada data untuk melakukan prediksi.')
 
@@ -233,9 +253,14 @@ with st.container():
                 probas_knn = probas_knn.round().astype(int)
                 akurasi_knn = round(100 * accuracy_score(test_label, probas_knn))
 
+                # Decision Tree
+                input_pred_decision_tree = decision_tree.predict(inputs_encoded)
+                probas_decision_tree = probas_decision_tree.round().astype(int)
+                akurasi_decision_tree = round(100 * accuracy_score(test_label, probas_decision_tree))
+
                 # Create a bar chart to compare accuracies
-                models = ['Gaussian Naive Bayes', 'Artificial Neural Network', 'Support Vector Machine', 'Logistic Regression', 'K-Nearest Neighbors']
-                accuracies = [akurasi_gaussian, akurasi_ann, akurasi_svm, akurasi_logistic_regression, akurasi_knn]
+                models = ['Gaussian Naive Bayes', 'Artificial Neural Network', 'Support Vector Machine', 'Logistic Regression', 'K-Nearest Neighbors', 'Decision Tree']
+                accuracies = [akurasi_gaussian, akurasi_ann, akurasi_svm, akurasi_logistic_regression, akurasi_knn, akurasi_decision_tree]
 
                 fig = go.Figure(data=[go.Bar(x=models, y=accuracies)])
                 fig.update_layout(title='Perbandingan Akurasi Model', xaxis_title='Model', yaxis_title='Akurasi (%)')
