@@ -114,9 +114,6 @@ with st.container():
                                         ['Sudah Meninggal', 'Petani', 'Pedagang Kecil', 'Karyawan Swasta', 'Wiraswasta'])
         penghasilan_ortu_wali = st.selectbox('Pilih penghasilan ortu atau wali:',
                                             ['Tidak Berpenghasilan', 'Kurang dari 1.000.000', '500,000 - 999,999', '1,000,000 - 1,999,999'])
-        model = st.selectbox('Pilih Model:',
-                            ['Gaussian Naive Bayes', 'Artificial Neural Network', 'Support Vector Machine', 'Logistic Regression', 'K-Nearest Neighbors'])
-
         if st.button('Submit'):
             inputs = np.array([
                 jenis_tinggal,
@@ -131,34 +128,65 @@ with st.container():
             # Transformasi one-hot encoding pada input data
             inputs_encoded = encoder.transform(inputs).toarray()
 
-            if model == 'Gaussian Naive Bayes':
-                mod = gaussian
-                probas = probas_gaussian
-            elif model == 'Artificial Neural Network':
-                mod = ann
-                probas = probas_ann
-            elif model == 'Support Vector Machine':
-                mod = svm
-                probas = probas_svm
-            elif model == 'Logistic Regression':
-                mod = logistic_regression
-                probas = probas_logistic_regression
-            elif model == 'K-Nearest Neighbors':
-                mod = knn
-                probas = probas_knn
-
-            input_pred = mod.predict(inputs_encoded)
-
             st.subheader('Hasil Prediksi')
-            st.write('Menggunakan Pemodelan:', model)
 
             if len(test_label) > 0:
                 test_label = test_label.astype(int)
-                probas = probas.round().astype(int)
-                akurasi = round(100 * accuracy_score(test_label, probas))
-                st.write('Akurasi: {0:0.0f}'.format(akurasi), '%')
 
-            if input_pred == 1:
-                st.error('PIP')
+                # Gaussian Naive Bayes
+                input_pred_gaussian = gaussian.predict(inputs_encoded)
+                probas_gaussian = probas_gaussian.round().astype(int)
+                akurasi_gaussian = round(100 * accuracy_score(test_label, probas_gaussian))
+                st.write('Gaussian Naive Bayes')
+                st.write('Akurasi: {0:0.0f}'.format(akurasi_gaussian), '%')
+                if input_pred_gaussian == 1:
+                    st.error('PIP')
+                else:
+                    st.success('KIP')
+
+                # Artificial Neural Network
+                input_pred_ann = ann.predict(inputs_encoded)
+                probas_ann = probas_ann.round().astype(int)
+                akurasi_ann = round(100 * accuracy_score(test_label, probas_ann))
+                st.write('Artificial Neural Network')
+                st.write('Akurasi: {0:0.0f}'.format(akurasi_ann), '%')
+                if input_pred_ann == 1:
+                    st.error('PIP')
+                else:
+                    st.success('KIP')
+
+                # Support Vector Machine
+                input_pred_svm = svm.predict(inputs_encoded)
+                probas_svm = probas_svm.round().astype(int)
+                akurasi_svm = round(100 * accuracy_score(test_label, probas_svm))
+                st.write('Support Vector Machine')
+                st.write('Akurasi: {0:0.0f}'.format(akurasi_svm), '%')
+                if input_pred_svm == 1:
+                    st.error('PIP')
+                else:
+                    st.success('KIP')
+
+                # Logistic Regression
+                input_pred_logistic_regression = logistic_regression.predict(inputs_encoded)
+                probas_logistic_regression = probas_logistic_regression.round().astype(int)
+                akurasi_logistic_regression = round(100 * accuracy_score(test_label, probas_logistic_regression))
+                st.write('Logistic Regression')
+                st.write('Akurasi: {0:0.0f}'.format(akurasi_logistic_regression), '%')
+                if input_pred_logistic_regression == 1:
+                    st.error('PIP')
+                else:
+                    st.success('KIP')
+
+                # K-Nearest Neighbors
+                input_pred_knn = knn.predict(inputs_encoded)
+                probas_knn = probas_knn.round().astype(int)
+                akurasi_knn = round(100 * accuracy_score(test_label, probas_knn))
+                st.write('K-Nearest Neighbors')
+                st.write('Akurasi: {0:0.0f}'.format(akurasi_knn), '%')
+                if input_pred_knn == 1:
+                    st.error('PIP')
+                else:
+                    st.success('KIP')
+
             else:
-                st.success('KIP')
+                st.error('Tidak ada data untuk melakukan prediksi.')
