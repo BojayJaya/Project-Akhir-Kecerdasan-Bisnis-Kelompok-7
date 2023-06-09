@@ -131,66 +131,66 @@ with st.container():
 
             st.subheader('Hasil Prediksi')
 
-            # if len(test_label) > 0:
-            #     test_label = test_label.astype(int)
+            if len(test_label) > 0:
+                test_label = test_label.astype(int)
 
-            #     # Gaussian Naive Bayes
-            #     input_pred_gaussian = gaussian.predict(inputs_encoded)
-            #     probas_gaussian = probas_gaussian.round().astype(int)
-            #     akurasi_gaussian = round(100 * accuracy_score(test_label, probas_gaussian))
-            #     st.write('Gaussian Naive Bayes')
-            #     st.write('Akurasi: {0:0.0f}'.format(akurasi_gaussian), '%')
-            #     if input_pred_gaussian == 1:
-            #         st.error('PIP')
-            #     else:
-            #         st.success('KIP')
+                # Gaussian Naive Bayes
+                input_pred_gaussian = gaussian.predict(inputs_encoded)
+                probas_gaussian = probas_gaussian.round().astype(int)
+                akurasi_gaussian = round(100 * accuracy_score(test_label, probas_gaussian))
+                st.write('Gaussian Naive Bayes')
+                st.write('Akurasi: {0:0.0f}'.format(akurasi_gaussian), '%')
+                if input_pred_gaussian == 1:
+                    st.error('PIP')
+                else:
+                    st.success('KIP')
 
-            #     # Artificial Neural Network
-            #     input_pred_ann = ann.predict(inputs_encoded)
-            #     probas_ann = probas_ann.round().astype(int)
-            #     akurasi_ann = round(100 * accuracy_score(test_label, probas_ann))
-            #     st.write('Artificial Neural Network')
-            #     st.write('Akurasi: {0:0.0f}'.format(akurasi_ann), '%')
-            #     if input_pred_ann == 1:
-            #         st.error('PIP')
-            #     else:
-            #         st.success('KIP')
+                # Artificial Neural Network
+                input_pred_ann = ann.predict(inputs_encoded)
+                probas_ann = probas_ann.round().astype(int)
+                akurasi_ann = round(100 * accuracy_score(test_label, probas_ann))
+                st.write('Artificial Neural Network')
+                st.write('Akurasi: {0:0.0f}'.format(akurasi_ann), '%')
+                if input_pred_ann == 1:
+                    st.error('PIP')
+                else:
+                    st.success('KIP')
 
-            #     # Support Vector Machine
-            #     input_pred_svm = svm.predict(inputs_encoded)
-            #     probas_svm = probas_svm.round().astype(int)
-            #     akurasi_svm = round(100 * accuracy_score(test_label, probas_svm))
-            #     st.write('Support Vector Machine')
-            #     st.write('Akurasi: {0:0.0f}'.format(akurasi_svm), '%')
-            #     if input_pred_svm == 1:
-            #         st.error('PIP')
-            #     else:
-            #         st.success('KIP')
+                # Support Vector Machine
+                input_pred_svm = svm.predict(inputs_encoded)
+                probas_svm = probas_svm.round().astype(int)
+                akurasi_svm = round(100 * accuracy_score(test_label, probas_svm))
+                st.write('Support Vector Machine')
+                st.write('Akurasi: {0:0.0f}'.format(akurasi_svm), '%')
+                if input_pred_svm == 1:
+                    st.error('PIP')
+                else:
+                    st.success('KIP')
 
-            #     # Logistic Regression
-            #     input_pred_logistic_regression = logistic_regression.predict(inputs_encoded)
-            #     probas_logistic_regression = probas_logistic_regression.round().astype(int)
-            #     akurasi_logistic_regression = round(100 * accuracy_score(test_label, probas_logistic_regression))
-            #     st.write('Logistic Regression')
-            #     st.write('Akurasi: {0:0.0f}'.format(akurasi_logistic_regression), '%')
-            #     if input_pred_logistic_regression == 1:
-            #         st.error('PIP')
-            #     else:
-            #         st.success('KIP')
+                # Logistic Regression
+                input_pred_logistic_regression = logistic_regression.predict(inputs_encoded)
+                probas_logistic_regression = probas_logistic_regression.round().astype(int)
+                akurasi_logistic_regression = round(100 * accuracy_score(test_label, probas_logistic_regression))
+                st.write('Logistic Regression')
+                st.write('Akurasi: {0:0.0f}'.format(akurasi_logistic_regression), '%')
+                if input_pred_logistic_regression == 1:
+                    st.error('PIP')
+                else:
+                    st.success('KIP')
 
-            #     # K-Nearest Neighbors
-            #     input_pred_knn = knn.predict(inputs_encoded)
-            #     probas_knn = probas_knn.round().astype(int)
-            #     akurasi_knn = round(100 * accuracy_score(test_label, probas_knn))
-            #     st.write('K-Nearest Neighbors')
-            #     st.write('Akurasi: {0:0.0f}'.format(akurasi_knn), '%')
-            #     if input_pred_knn == 1:
-            #         st.error('PIP')
-            #     else:
-            #         st.success('KIP')
+                # K-Nearest Neighbors
+                input_pred_knn = knn.predict(inputs_encoded)
+                probas_knn = probas_knn.round().astype(int)
+                akurasi_knn = round(100 * accuracy_score(test_label, probas_knn))
+                st.write('K-Nearest Neighbors')
+                st.write('Akurasi: {0:0.0f}'.format(akurasi_knn), '%')
+                if input_pred_knn == 1:
+                    st.error('PIP')
+                else:
+                    st.success('KIP')
 
-            # else:
-            #     st.error('Tidak ada data untuk melakukan prediksi.')
+            else:
+                st.error('Tidak ada data untuk melakukan prediksi.')
 
 
             if len(test_label) > 0:
