@@ -124,7 +124,7 @@ with st.container():
         probas_logistic_regression = probas_logistic_regression.round().astype(int)
 
         # K-Nearest Neighbors
-        k = 9  # Nilai K default jika ingin merubah tinggal ubah nilai k nya
+        k = 5  # Nilai K default jika ingin merubah tinggal ubah nilai k nya
         knn = KNeighborsClassifier(n_neighbors=k)
         knn.fit(training, training_label)
         probas_knn = knn.predict_proba(test)
