@@ -81,7 +81,7 @@ with st.container():
         y_encoded = label_encoder.fit_transform(y)
 
         # Split Data
-        training, test, training_label, test_label = train_test_split(scaled_features, y_encoded, test_size=0.3, random_state=10)
+        training, test, training_label, test_label = train_test_split(scaled_features, y_encoded, test_size=0.2, random_state=10)
 
         # Gaussian Naive Bayes
         gaussian = GaussianNB()
@@ -124,7 +124,7 @@ with st.container():
         probas_logistic_regression = probas_logistic_regression.round().astype(int)
 
         # K-Nearest Neighbors
-        k = 5  # Nilai K default jika ingin merubah tinggal ubah nilai k nya
+        k = 9  # Nilai K default jika ingin merubah tinggal ubah nilai k nya
         knn = KNeighborsClassifier(n_neighbors=k)
         knn.fit(training, training_label)
         probas_knn = knn.predict_proba(test)
