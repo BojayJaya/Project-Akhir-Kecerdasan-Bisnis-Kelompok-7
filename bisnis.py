@@ -29,7 +29,7 @@ st.set_page_config(
 )
 st.write("""
 <center><h3 style="text-align: justify;">KLASIFIKASI PENERIMA BANTUAN PIP DAN KIP SD NEGERI LOMBANG DAJAH 1 MENGGUNAKAN METODE</h3></center>
-<center><h3 style="text-align: justify;">NAIVE BAYES, ANN, SVM, LOGISTIC REGRESSION, DAN KNN</h3></center>
+<center><h3 style="text-align: justify;">NAIVE BAYES, ANN, SVM, LOGISTIC REGRESSION, KNN, DAN DECISION TREE</h3></center>
 """, unsafe_allow_html=True)
 st.write("### Dosen Pengampu : Eka Mala Sari Rochman, S.Kom., M.Kom.", unsafe_allow_html=True)
 
